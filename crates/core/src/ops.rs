@@ -1,3 +1,10 @@
+//! Boolean operations and combinators for matchers.
+//!
+//! This module provides `And`, `Or`, `Not`, `All`, and `Any` combinators
+//! that allow composing matchers into complex patterns. Each combinator
+//! properly manages the `MetaVarEnv` to ensure variable bindings are
+//! correctly propagated through the matching process.
+
 use crate::matcher::{MatchAll, MatchNone, Matcher};
 use crate::meta_var::MetaVarEnv;
 use crate::{Doc, Node};
@@ -244,38 +251,6 @@ where
     self.inner.potential_kinds()
   }
 }
-
-/*
-pub struct Predicate<F> {
-  func: F,
-}
-
-impl<L, F> Matcher for Predicate<F>
-where
-  L: Language,
-  F: for<'tree> Fn(&Node<'tree, StrDoc<L>>) -> bool,
-{
-  fn match_node_with_env<'tree, D: Doc<Lang=L>>(
-    &self,
-    node: Node<'tree, D>,
-    env: &mut MetaVarEnv<'tree, D>,
-  ) -> Option<Node<'tree, D>> {
-    (self.func)(&node).then_some(node)
-  }
-}
-*/
-
-/*
-// we don't need specify M for static method
-impl<L: Language> Op<L, MatchNone> {
-  pub fn func<F>(func: F) -> Predicate<F>
-  where
-    F: for<'tree> Fn(&Node<'tree, StrDoc<L>>) -> bool,
-  {
-    Predicate { func }
-  }
-}
-*/
 
 impl<M: Matcher> Op<M> {
   pub fn not(pattern: M) -> Not<M> {
