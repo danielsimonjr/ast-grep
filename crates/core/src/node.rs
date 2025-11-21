@@ -282,9 +282,19 @@ impl<'r, D: Doc> Node<'r, D> {
   }
 
   /// Returns all sibling nodes next to `self`.
+  ///
+  /// # Example
+  ///
+  /// ```ignore
+  /// // For code: a; b; c;
+  /// let first = root.root().child(0).unwrap();
+  /// let siblings: Vec<_> = first.next_all().collect();
+  /// // siblings will contain nodes for 'b' and 'c'
+  /// ```
   // NOTE: Need go to parent first, then move to current node by byte offset.
   // This is because tree_sitter cursor is scoped to the starting node.
   // See https://github.com/tree-sitter/tree-sitter/issues/567
+  #[must_use]
   pub fn next_all(&self) -> impl Iterator<Item = Node<'r, D>> + '_ {
     self.inner.next_all().map(|inner| Node {
       inner,
@@ -344,17 +354,32 @@ impl<D: Doc> Node<'_, D> {
     Some(edit)
   }
 
+  /// This method is not yet implemented and will panic if called.
+  #[deprecated(note = "This method is not yet implemented and will panic")]
+  #[doc(hidden)]
   pub fn after(&self) -> Edit<D> {
-    todo!()
+    unimplemented!("after() is not yet implemented")
   }
+
+  /// This method is not yet implemented and will panic if called.
+  #[deprecated(note = "This method is not yet implemented and will panic")]
+  #[doc(hidden)]
   pub fn before(&self) -> Edit<D> {
-    todo!()
+    unimplemented!("before() is not yet implemented")
   }
+
+  /// This method is not yet implemented and will panic if called.
+  #[deprecated(note = "This method is not yet implemented and will panic")]
+  #[doc(hidden)]
   pub fn append(&self) -> Edit<D> {
-    todo!()
+    unimplemented!("append() is not yet implemented")
   }
+
+  /// This method is not yet implemented and will panic if called.
+  #[deprecated(note = "This method is not yet implemented and will panic")]
+  #[doc(hidden)]
   pub fn prepend(&self) -> Edit<D> {
-    todo!()
+    unimplemented!("prepend() is not yet implemented")
   }
 
   /// Empty children. Remove all child node

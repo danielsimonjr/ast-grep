@@ -166,7 +166,8 @@ impl LanguageExt for NapiLang {
 
 pub fn register_dynamic_language(langs: HashMap<String, CustomLang>) -> Result<()> {
   let base = std::env::current_dir()?;
-  CustomLang::register(&base, langs).expect("TODO");
+  CustomLang::register(&base, langs)
+    .map_err(|e| anyhow!("Failed to register dynamic language: {}", e))?;
   Ok(())
 }
 

@@ -24,6 +24,9 @@ use match_merger::MatchMerger;
 pub use styles::should_use_color;
 use styles::{PrintStyles, RuleStyle};
 
+// Constants for default values
+const DEFAULT_DIFF_CONTEXT: usize = 3;
+
 #[derive(Clone, Copy, ValueEnum)]
 pub enum ReportStyle {
   /// Output a richly formatted diagnostic, with source code previews.
@@ -180,7 +183,7 @@ impl ColoredProcessor {
 
   fn diff_context(&self) -> usize {
     if self.context.0 == 0 {
-      3
+      DEFAULT_DIFF_CONTEXT
     } else {
       self.context.0 as usize
     }

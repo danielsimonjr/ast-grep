@@ -1,3 +1,9 @@
+//! Core rule definitions and matching logic.
+//!
+//! This module defines the `RuleCore` type which represents a complete matching rule
+//! with optional constraints, transformations, and fixes. It handles the deserialization
+//! of YAML-based rule configurations and provides the primary matching interface.
+
 use crate::check_var::{check_rule_with_hint, CheckHint};
 use crate::fixer::{Fixer, FixerError, SerializableFixer};
 use crate::rule::referent_rule::RuleRegistration;
